@@ -1,0 +1,96 @@
+import java.util.Random;
+
+/**
+ * <p> QuickSort Algorithm to sort unsorted graphs,
+ * using different pivot selection methods and partitioning.</p>
+ *
+ * @author Joseph Parish.
+ * @version 1.0.1
+ * Last Changed: 8/03/25
+ */
+
+public class QuickSort {
+
+    /**
+     * QuickSort main body - picks a pivot, puts all smaller numbers on the left 
+     * and bigger on the right then solves recursively
+     * 
+     * @param arr - array to be sorted
+     * @param low - lowest position in array
+     * @param high - highest position in array
+     * @param pivotSelectionMethod - type of pivot selection method used
+     */
+    static void quickSort(int[] arr, int low, int high, int pivotSelectionMethod) {
+        if (low < high) {
+
+            // partition index
+            int pi = partition(arr, low, high, pivotSelectionMethod);
+
+            // Recursion
+            quickSort(arr, low, pi - 1, pivotSelectionMethod);
+            quickSort(arr, pi + 1, high, pivotSelectionMethod);
+        }
+    }
+
+    /**
+     * pivot() - selects the pivot in an array based on the type of method chosen
+     *
+     * @param arr - array to be sorted
+     * @param pivotSelectionMethod - type of pivot selection method used
+     */
+    static int pivot(int[] arr, int pivotSelectionMethod) {
+
+        if (pivotSelectionMethod == 0) {
+            // using first element
+            return 0;
+        }
+        else if (pivotSelectionMethod == 1) {
+            // using random element
+            return new Random().nextInt(arr.length - 1);
+        }
+        else {
+            // using median
+            return (arr.length - 1)/2;
+        }
+    }
+
+    /**
+     * partition() - puts all smaller numbers on the left 
+     * and bigger on the right of a pivot using swap()
+     *
+     * @param arr - array to be sorted
+     * @param low - lowest position in array
+     * @param high - highest position in array
+     * @param pivotSelectionMethod - type of pivot selection method used
+     */
+    static int partition(int[] arr, int low, int high, int pivotSelectionMethod) {
+
+        int pivot = pivot(arr, pivotSelectionMethod);
+
+        // Index of smaller element
+        int i = low - 1;
+
+        // Traverse array and move elements to the left side if smaller
+        for (int j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+
+        // Move pivot after smaller elements and return its position
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
+
+    /**
+     * swap() - swaps elements in an array
+     *
+     * @param arr - array to be sorted
+     */
+    static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
