@@ -1,3 +1,18 @@
-Algorithms ToDo
-- BogoSort
+Algorithms ToDo:
+- Big O Notation
+
+  SORTS:
+    - MergeSort
+    - InsertionSort
+    - BogoSort
+  SEARCHES:
+    - BFS
+    - DFS
+    - UCS
+    - GS
+    - GENETIC
+    - HILL
+    - A*
+    - MINMAX
+
 - median - finds median in an unsorted array/list
