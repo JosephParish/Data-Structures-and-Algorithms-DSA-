@@ -3,7 +3,7 @@
  * using a Divide and Conquer approach.</p>
  *
  * @author Joseph Parish.
- * @version 1.0.o
+ * @version 1.0.0
  * Last Changed: 30/04/25
  */
 public class MergeSort {
