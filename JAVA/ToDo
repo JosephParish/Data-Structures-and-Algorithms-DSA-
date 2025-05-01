@@ -2,7 +2,6 @@ Algorithms ToDo:
 - Big O Notation
 
   SORTS:
-    - InsertionSort
     - BogoSort
   SEARCHES:
     - BFS
