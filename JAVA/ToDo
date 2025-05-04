@@ -2,7 +2,7 @@ Algorithms ToDo:
 - Big O Notation
 
   SORTS:
-    - HeapSort
+    - SelectionSort
     - TopilogicalSort
     - BogoSort
   SEARCHES:
