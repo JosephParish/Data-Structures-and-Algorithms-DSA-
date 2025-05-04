@@ -5,8 +5,8 @@
  * doing then repeating recursively.</p>
  *
  * @author Joseph Parish.
- * @version 1.0.0
- * Last Changed: 04/05/25
+ * @version 1.0.1
+ * Last Changed: 05/05/25
  */
 public class HeapSort {
     /**
@@ -15,7 +15,7 @@ public class HeapSort {
      *
      * @param array - array to be sorted
      */
-    void heapSort(int[] array) {
+    static void heapSort(int[] array) {
         int n = array.length;
 
         for (int rootIndex = n / 2 - 1; rootIndex >= 0; rootIndex--) {
@@ -37,7 +37,7 @@ public class HeapSort {
      * @param n - array length
      * @param rootIndex - root index of heap
      */
-    void heapify(int[] array, int n, int rootIndex) {
+    static void heapify(int[] array, int n, int rootIndex) {
         int largest = rootIndex;
         int l = 2 * rootIndex + 1;
         int r = 2 * rootIndex + 2;
