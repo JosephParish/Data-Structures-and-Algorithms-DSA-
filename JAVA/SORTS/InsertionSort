@@ -13,7 +13,7 @@ public class InsertionSort {
      *
      * @param array - array to be sorted
      */
-    void InsertionSort(int array[])
+    void insertionSort(int array[])
     {
         for (int i = 1; i < array.length; ++i) {
             int j = i - 1;
