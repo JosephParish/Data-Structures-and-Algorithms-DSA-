@@ -3,8 +3,8 @@
  * does this by placing elements in the correct place one by one.</p>
  *
  * @author Joseph Parish.
- * @version 1.0.0
- * Last Changed: 01/05/25
+ * @version 1.0.2
+ * Last Changed: 05/05/25
  */
 public class InsertionSort {
     /**
