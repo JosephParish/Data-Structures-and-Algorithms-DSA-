@@ -3,7 +3,7 @@
  * does this by placing elements in the correct place one by one.</p>
  *
  * @author Joseph Parish.
- * @version 1.0.2
+ * @version 1.0.3
  * Last Changed: 05/05/25
  */
 public class InsertionSort {
@@ -13,7 +13,7 @@ public class InsertionSort {
      *
      * @param array - array to be sorted
      */
-    void insertionSort(int array[])
+    static void insertionSort(int array[])
     {
         for (int i = 1; i < array.length; ++i) {
             int j = i - 1;
