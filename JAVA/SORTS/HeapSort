@@ -1,1 +1,60 @@
+/**
+ * <p> HeapSort Algorithm to sort unsorted arrays,
+ * does this by using MAX binary heaps then substituting the root node
+ * with the last element/node, ignoring the biggest element and reheapifying the MAX heap,
+ * doing then repeating recursively.</p>
+ *
+ * @author Joseph Parish.
+ * @version 1.0.0
+ * Last Changed: 04/05/25
+ */
+public class HeapSort {
+    /**
+     * Main body of HeapSort, 
+     * creates MAX heap, swaps 0 and n nodes, makes reduced heap a MAX heap.
+     *
+     * @param array - array to be sorted
+     */
+    void heapSort(int[] array) {
+        int n = array.length;
 
+        for (int rootIndex = n / 2 - 1; rootIndex >= 0; rootIndex--) {
+            heapify(array, n, rootIndex);
+        }
+        
+        for (int i = n - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapify(array, i, 0);
+        }
+    }
+    /**
+     * Ensures that a binary heap holds the properties of one recursively
+     *
+     * @param array - array to be sorted
+     * @param n - array length
+     * @param rootIndex - root index of heap
+     */
+    void heapify(int[] array, int n, int rootIndex) {
+        int largest = rootIndex;
+        int l = 2 * rootIndex + 1;
+        int r = 2 * rootIndex + 2;
+
+        if (l < n && array[l] > array[largest]) {
+            largest = l;
+        }
+        if (r < n && array[r] > array[largest]) {
+            largest = r;
+        }
+
+        if (largest != rootIndex) {
+            int temp = array[rootIndex];
+            array[rootIndex] = array[largest];
+            array[largest] = temp;
+
+            heapify(array, n, largest);
+        }
+    }
+}
