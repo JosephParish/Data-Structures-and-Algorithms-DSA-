@@ -2,6 +2,8 @@ Algorithms ToDo:
 - Big O Notation
 
   SORTS:
+    - CycleSort
+    - ThreeWayMergeSort
     - TopilogicalSort
     - BogoSort
   SEARCHES:
