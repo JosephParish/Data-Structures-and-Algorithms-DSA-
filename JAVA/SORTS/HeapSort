@@ -23,10 +23,7 @@ public class HeapSort {
         }
         
         for (int i = n - 1; i > 0; i--) {
-            int temp = array[0];
-            array[0] = array[i];
-            array[i] = temp;
-
+            swap(array, 0, i);
             heapify(array, i, 0);
         }
     }
@@ -50,11 +47,21 @@ public class HeapSort {
         }
 
         if (largest != rootIndex) {
-            int temp = array[rootIndex];
-            array[rootIndex] = array[largest];
-            array[largest] = temp;
-
+            swap(array, rootIndex, largest);
             heapify(array, n, largest);
         }
+    }
+    /**
+     * swap function to swap data in an array
+     *
+     * @param array - array to be sorted
+     * @param i - index of current element
+     * @param newpos - correct position for element
+     */
+    static void swap(int[] array, int i, int newpos)
+    {
+        int temp = array[i];
+        array[i] = array[newpos];
+        array[newpos] = temp;
     }
 }
