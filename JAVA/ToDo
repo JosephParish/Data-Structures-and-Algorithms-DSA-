@@ -3,7 +3,6 @@ Algorithms ToDo:
 - swap function to all
 
   SORTS:
-    - CycleSort
     - ThreeWayMergeSort
     - TopilogicalSort
     - BogoSort
