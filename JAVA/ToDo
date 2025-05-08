@@ -20,5 +20,13 @@ Algorithms ToDo:
     - HILL
     - A*
     - MINMAX
+    - SentinelLinearSearch
+    - MetaBinarySearch | One-SidedBinarySearch
+    - TernarySearch
+    - JumpSearch
+    - InterpolationSearch
+    - ExponentialSearch
+    - FibonacciSearch
+    - UbiquitousBinarySearch
 
 - median - finds median in an unsorted array/list
