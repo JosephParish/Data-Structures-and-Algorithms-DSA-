@@ -2,7 +2,6 @@ Algorithms ToDo:
 - Big O Notation
 
   SORTS:
-    - CountingSort
     - RadixSort
     - BucketSort
     - TimSort
