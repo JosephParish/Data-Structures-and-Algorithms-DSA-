@@ -5,7 +5,6 @@ Algorithms ToDo:
 - format all code to be exactly the same (spacing, {}, wording/comments, etc)
 
   SORTS:
-    - CountingSort
     - RadixSort
     - BucketSort
     - TimSort
