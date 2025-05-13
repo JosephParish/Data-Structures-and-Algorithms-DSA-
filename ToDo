@@ -1,1 +1,33 @@
+Algorithms ToDo:
+- Big O Notation
+- specifiy best usage for code (small datasets, little variance in data, etc)
+- format all code to be exactly the same (spacing, {}, wording/comments, etc)
 
+  SORTS:
+    - RadixSort
+    - BucketSort
+    - TimSort
+    - CombSort
+    - PigeonholeSort
+    - IntroSort
+    - TopilogicalSort
+    - BogoSort
+  SEARCHES:
+    - BFS
+    - DFS
+    - UCS
+    - GS
+    - GENETIC
+    - HILL
+    - A*
+    - MINMAX
+    - SentinelLinearSearch
+    - MetaBinarySearch | One-SidedBinarySearch
+    - TernarySearch
+    - JumpSearch
+    - InterpolationSearch
+    - ExponentialSearch
+    - FibonacciSearch
+    - UbiquitousBinarySearch
+
+- median - finds median in an unsorted array/list
