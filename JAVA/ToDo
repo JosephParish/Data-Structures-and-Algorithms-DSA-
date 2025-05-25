@@ -1,7 +1,7 @@
 Algorithms ToDo:
 - Big O Notation
 - specifiy best usage for code (small datasets, little variance in data, etc)
-- format all code to be exactly the same (spacing, {}, wording/comments, etc).
+- format all code to be exactly the same (spacing, {}, wording/comments, etc)
 
   SORTS:
     - RadixSort
