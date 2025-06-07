@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * <p> RadixSort Algorithm to sort unsorted arrays,
- * using different pivot selection methods and partitioning.</p>
+ * using different pivot selection methods and partitioning.</p>.
  *
  * @author Joseph Parish.
  * @version 1.0.2
