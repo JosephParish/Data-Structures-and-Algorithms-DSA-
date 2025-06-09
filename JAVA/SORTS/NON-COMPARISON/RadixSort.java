@@ -57,8 +57,6 @@ class RadixSort {
             array[i] = output[i];
     }
 
-
-
     // A utility function to get maximum value in array
     static int getMax(int[] array, int n)
     {
