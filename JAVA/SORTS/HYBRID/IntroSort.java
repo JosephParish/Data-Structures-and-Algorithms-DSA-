@@ -130,8 +130,7 @@ public class Introsort {
     // This function takes the last element as pivot, places
     // the pivot element at its correct position in sorted
     // array, and places all smaller (smaller than pivot)
-    // to the left of the pivot
-    // and greater elements to the right of the pivot
+    // to the left of the pivot and greater elements to the right of the pivot
     private int partition(int low, int high) {
         
       int pivot = array[high];
