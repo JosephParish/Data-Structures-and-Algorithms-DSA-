@@ -3,7 +3,7 @@ import java.io.IOException;
 public class Introsort {
 
     private int[] array;
-    private int n; 
+    private int n;
     
     // Initialises and begins Introsort
     private void introsort(int[] array) {
