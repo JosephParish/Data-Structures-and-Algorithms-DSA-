@@ -64,6 +64,7 @@ public class TimSort {
         for (int x = 0; x < len1; x++) {
             left[x] = array[l + x];
         }
+      
         for (int x = 0; x < len2; x++) {
             right[x] = array[m + 1 + x];
         }
