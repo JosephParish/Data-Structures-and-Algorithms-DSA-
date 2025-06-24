@@ -77,8 +77,7 @@ public class TimSort {
             if (left[i] <= right[j]) {
                 array[k] = left[i];
                 i++;
-            }
-            else {
+            } else {
                 array[k] = right[j];
                 j++;
             }
