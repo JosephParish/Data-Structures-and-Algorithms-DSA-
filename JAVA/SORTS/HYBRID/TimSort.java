@@ -73,7 +73,7 @@ public class TimSort {
         int j = 0;
         int k = l;
 
-        // merge into larger sub array
+        // merge into larger sub array 
         while (i < len1 && j < len2) {
             if (left[i] <= right[j]) {
                 array[k] = left[i];
