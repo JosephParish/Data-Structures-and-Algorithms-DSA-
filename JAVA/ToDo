@@ -6,14 +6,13 @@ Algorithms ToDo:
 Go thorugh:
   - Intro Sort
   - Tim Sort
+  - BucketSort
+  - RadixSort
+  - IntroSort
 
   SORTS:
-    - RadixSort
-    - BucketSort
-    - TimSort
     - CombSort
     - PigeonholeSort
-    - IntroSort
     - TopilogicalSort
     - BogoSort
 
