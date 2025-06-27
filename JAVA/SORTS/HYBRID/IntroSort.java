@@ -4,8 +4,6 @@ public class Introsort {
 
     private int[] array;
     private int n;
-
-    
     
     // Initialises and begins Introsort
     private void introsort(int[] array) {
