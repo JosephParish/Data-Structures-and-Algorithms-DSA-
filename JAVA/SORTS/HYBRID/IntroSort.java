@@ -11,7 +11,6 @@ public class Introsort {
       this.array = array;
       this.n = 0;
       int depthLimit = (int)(2 * Math.floor(Math.log(n)/Math.log(2))); //2*log(length(data))
-      
       this.sortData(0, n - 1, depthLimit);
     }
   
