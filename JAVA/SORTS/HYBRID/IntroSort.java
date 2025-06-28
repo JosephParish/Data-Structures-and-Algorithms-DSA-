@@ -21,7 +21,6 @@ public class Introsort {
     private void sortData(int begin, int end, int depthLimit) {
         if (end - begin > 16) {
             if (depthLimit == 0) {
-                // if the recursion limit is occurred
                 this.heapSort(begin, end);
                 return;
             }
