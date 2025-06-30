@@ -4,12 +4,12 @@
  * works well on smaller data sets with less variance in the data i.e. 1 1 2 3 4 4 5. </p>
  *
  * @author Joseph Parish.
- * @version 1.0.0
+ * @version 1.0.1
  * Last Changed: 12/05/25
  */
 public class CountSort {
     /**
-     * Main Body of CountSort,
+     * CountSort main body,
      * uses a counting array to count the value of every number in the array,
      * then adds the count of all smaller numbers to each value,
      * then goes and puts every value from back to front in order by putting it in the reduced countArray value.
