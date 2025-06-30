@@ -3,11 +3,7 @@ Algorithms ToDo:
 - specifiy best usage for code (small datasets, little variance in data, etc)
 - format all code to be exactly the same (spacing, {}, wording/comments, etc)
   SORTS:
-    - BucketSort
-    - TimSort
-    - CombSort
     - PigeonholeSort
-    - IntroSort
     - TopilogicalSort
     - BogoSort
   SEARCHES:
