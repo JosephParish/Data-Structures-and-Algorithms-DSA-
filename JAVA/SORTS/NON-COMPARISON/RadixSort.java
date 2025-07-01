@@ -3,66 +3,74 @@ import java.util.*;
 
 /**
  * <p> RadixSort Algorithm to sort unsorted arrays,
- * using different pivot selection methods and partitioning.</p>
+ * does this by sorting by digit.</p>
  *
  * @author Joseph Parish.
- * @version 1.0.6
- * Last Changed: 07/06/25
+ * @version 1.0.7
+ * Last Changed: 01/07/25
  */
 
 class RadixSort {
 
-    // The main function to that sorts array of
-    // size n using Radix Sort
-    static void radixSort(int[] array, int n)
+    /**
+     * RadixSort main body - goes through array and for every digit swaps them to be in order.
+     *
+     * @param array - array to be sorted
+     */
+    static void radixSort(int[] array)
     {
-        // Find the maximum number to know number of digits
-        int max = getMax(array, n);
+        int max = getMax(array);
 
-        // Do counting sort for every digit. Note that
-        // instead of passing digit number, exp is passed.
-        // exp is 10^i where i is current digit number
-        for (int exp = 1; max / exp > 0; exp *= 10)
-            countSort(array, n, exp);
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countSort(array, exp);
+        }
     }
 
-    // A function to do counting sort of array according to
-    // the digit represented by exp.
-    static void countSort(int[] array, int n, int exp)
+    /**
+     * CountSort main body,
+     * uses a counting array to count the value of every number in the array,
+     * then adds the count of all smaller numbers to each value,
+     * then goes and puts every value from back to front in order by putting it in the reduced countArray value.
+     *
+     * @param array - array to be sorted
+     * @param exp - exp is the 10^i factor of what digit is to be sorted
+     */
+    static void countSort(int[] array, int exp)
     {
-        int[] output = new int[n];
+        int[] output = new int[array.length];
         int i;
         int[] count = new int[10];
         Arrays.fill(count, 0);
 
-        // Store count of occurrences in count
-        for (i = 0; i < n; i++)
+        for (i = 0; i < array.length; i++) {
             count[(array[i] / exp) % 10]++;
+        }
 
-        // Change count[i] so that count[i] now contains
-        // actual position of this digit in output
-        for (i = 1; i < 10; i++)
+        for (i = 1; i < 10; i++) {
             count[i] += count[i - 1];
+        }
 
-        // Build the output array
-        for (i = n - 1; i >= 0; i--) {
+        for (i = array.length - 1; i >= 0; i--) {
             output[count[(array[i] / exp) % 10] - 1] = array[i];
             count[(array[i] / exp) % 10]--;
         }
 
-        // Copy the output array to array, so that array now
-        // contains sorted numbers according to current
-        // digit
-        for (i = 0; i < n; i++)
+        for (i = 0; i < array.length; i++) {
             array[i] = output[i];
+        }
     }
 
     // A utility function to get maximum value in array
-    static int getMax(int[] array, int n)
+    /**
+     * getMax() - gets maximum value in a array
+     *
+     * @param array - array to look in
+     */
+    static int getMax(int[] array)
     {
-        int max = arr[0];
-        for (int i = 1; i < n; i++)
-            if (arr[i] > max)
+        int max = array[0];
+        for (int i = 1; i < array.length; i++)
+            if (array[i] > max)
                 max = array[i];
         return max;
     }
