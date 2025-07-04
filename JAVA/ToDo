@@ -4,11 +4,10 @@ Algorithms ToDo:
 - format all code to be exactly the same (spacing, {}, wording/comments, etc)
 
 Go thorugh:
-  - Intro Sort
+  - IntroSort
   - Tim Sort
   - BucketSort
   - RadixSort
-  - IntroSort
 
   SORTS:
     - PigeonholeSort
