@@ -8,6 +8,7 @@ Go thorugh:
   - Tim Sort
   - BucketSort
   - RadixSort
+  - PigeonholeSort
 
   SORTS:
     - PigeonholeSort
