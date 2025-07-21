@@ -1,12 +1,11 @@
 public class BFS {
 
-  public static int[] bfs(int[][] adjacencyList) {
+  public static int[] bfs(int[][] adj) {
     
-        int verticies = adjacencyList.length();
         int s = 0;
         ArrayList<Integer> traversal = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
-        boolean[] visited = new boolean[verticies];
+        boolean[] visited = new boolean[adj.length()];
         
         visited[s] = true;
         queue.add(s);
@@ -16,7 +15,7 @@ public class BFS {
             int curr = queue.poll();
             traversal.add(curr);
             
-            for (int x : adjacencyList[curr]) {
+            for (int x : adj[curr]) {
                 if (!visited[x]) {
                     visited[x] = true;
                     queue.add(x);
