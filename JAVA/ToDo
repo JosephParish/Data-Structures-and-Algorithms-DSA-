@@ -9,10 +9,9 @@ Go thorugh:
   - BucketSort
   - RadixSort
   - PigeonholeSort
+  - TopilogicalSort
 
   SORTS:
-    - PigeonholeSort
-    - TopilogicalSort
     - BogoSort
 
   SEARCHES:
