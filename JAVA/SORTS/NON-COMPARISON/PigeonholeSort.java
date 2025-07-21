@@ -6,7 +6,7 @@ public class PigeonholeSort {
         int max = array[0];
         int range, i, j, index; 
 
-        for(int a = 0; a < array.length; a++) {
+        for(int a = 0; a < array.length(); a++) {
             if(array[a] > max)
                 max = array[a];
             if(array[a] < min)
@@ -17,7 +17,7 @@ public class PigeonholeSort {
         int[] temp = new int[range];
         Arrays.fill(temp, 0);
 
-        for(i = 0; i < array.length; i++) {
+        for(i = 0; i < array.length(); i++) {
             temp[array[i] - min]++;
         }
         
