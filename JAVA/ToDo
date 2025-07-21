@@ -10,12 +10,13 @@ Go thorugh:
   - RadixSort
   - PigeonholeSort
   - TopilogicalSort
+  
+  - BFS
 
   SORTS:
     - BogoSort
 
   SEARCHES:
-    - BFS
     - DFS
     - UCS
     - GS
