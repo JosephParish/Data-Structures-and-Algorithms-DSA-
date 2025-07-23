@@ -1,24 +1,28 @@
-public class BFS {
+public class BFS <T> {
 
-  public static int[] bfs(int[][] adj) {
-    
-        int s = 0;
-        ArrayList<Integer> traversal = new ArrayList<>();
-        Queue<Integer> queue = new LinkedList<>();
+  public static <T> ArrayList<T> bfs(ArrayList<ArrayList<T>> adj, T source, T target) {
+        ArrayList<T> traversal = new ArrayList<>();
+        Queue<T> queue = new LinkedList<>();
         boolean[] visited = new boolean[adj.length()];
         
-        visited[s] = true;
-        queue.add(s);
+        visited[adj.indexOf(source)] = true;
+        queue.add(source);
         
         while (!queue.isEmpty()) {
-        
-            int curr = queue.poll();
-            traversal.add(curr);
+            T currentNode = queue.poll();
+            int currentIndex = adj.indexOf(currentNode);
+            traversal.add(currentNode);
             
-            for (int x : adj[curr]) {
-                if (!visited[x]) {
-                    visited[x] = true;
-                    queue.add(x);
+            if (currentNode.equals(target)) {
+                return traversal;
+            }
+          
+            for (T neighbor : adj.get(currentIndex)) {
+                if (!visited[neighbor] && currentNode != target) {
+                    visited.set(currentIndex, true);
+                    queue.add(neighbor);
+                } else {
+                  return traversal;
                 }
             }
         }
