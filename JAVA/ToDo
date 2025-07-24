@@ -12,12 +12,12 @@ Go thorugh:
   - TopilogicalSort
   
   - BFS
+  - DFS
 
   SORTS:
     - BogoSort
 
   SEARCHES:
-    - DFS
     - UCS
     - GS
     - GENETIC
