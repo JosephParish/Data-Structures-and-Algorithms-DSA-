@@ -20,7 +20,6 @@ Go thorugh:
   SEARCHES:
     - UCS
     - GS
-    - GENETIC
     - HILL
     - A*
     - MINMAX
