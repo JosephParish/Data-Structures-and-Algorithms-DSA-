@@ -73,7 +73,3 @@ public class GS<T> {
         return best;
     }
 }
-
-
-
-
