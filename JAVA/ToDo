@@ -10,15 +10,15 @@ Go thorugh:
   - RadixSort
   - PigeonholeSort
   - TopilogicalSort
+  - BogoSort
   
   - BFS
   - DFS
+  - UCS
 
   SORTS:
-    - BogoSort
 
   SEARCHES:
-    - UCS
     - GS
     - HILL
     - A*
