@@ -15,7 +15,3 @@ public class HS <T> {
 	  }
   }
 }
-
-
-
-
