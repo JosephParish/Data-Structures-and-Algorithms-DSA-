@@ -15,13 +15,13 @@ Go thorugh:
   - BFS
   - DFS
   - UCS
+  - GS
+  - HILL
+  - A*
 
   SORTS:
 
   SEARCHES:
-    - GS
-    - HILL
-    - A*
     - MINMAX
     - SentinelLinearSearch
     - MetaBinarySearch | One-SidedBinarySearch
