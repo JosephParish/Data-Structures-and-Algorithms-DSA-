@@ -30,7 +30,7 @@ public class AStar<T> {
 
                 double estimatedG = gScore.getOrDefault(current, Double.POSITIVE_INFINITY) + costFunction.apply(current, neighbor);
 
-                if (tentativeG < gScore.getOrDefault(neighbor, Double.POSITIVE_INFINITY)) {
+                if (estimatedG < gScore.getOrDefault(neighbor, Double.POSITIVE_INFINITY)) {
                     traversal.put(neighbor, current);
                     gScore.put(neighbor, estimatedG);
                     double estimatedF = estimatedG + heuristicFunction.apply(neighbor, goal);
