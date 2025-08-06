@@ -6,8 +6,3 @@ public class MINMAX<T> {
     public T minMaxSearch() {
     }
 }
-
-
-
-
-
