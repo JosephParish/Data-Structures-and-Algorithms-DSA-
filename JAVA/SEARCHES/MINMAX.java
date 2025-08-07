@@ -4,7 +4,7 @@ public class MINMAX<T> {
     private final ArrayList<T> adjStates; // Adjacency of states making up a tree (has to be in tree form, NO LOOPS)
     // scores is the tree in form {1, a, 2, 3, b, c, 4, 5}
     
-    private final Function<T, T> mFunc; // mutation function
+    private final Function<T, Double> fitFunc; // fitness function
     private final Comparator<T> fitComp; // fitness comparator
 
     public MINMAX(ArrayList<T> states, int maxDepth, Function<T, Double> fitFunc) {
