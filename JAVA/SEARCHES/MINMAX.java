@@ -1,31 +1,47 @@
+//ToDo
+// 1. implement custom comparator
+// 2. get the function to compare all subsequent choices until chosen depth
+// 3. BackTracking
+
 public class MINMAX<T> {
 
     private final int maxDepth;
-    private final ArrayList<T> adjStates; // Adjacency of states making up a tree (has to be in tree form, NO LOOPS)
+    private final ArrayList<ArrayList<T>> adjStates; // Adjacency of states making up a tree (has to be in tree form, NO LOOPS)
     // scores is the tree in form {1, a, 2, 3, b, c, 4, 5}
     
     private final Function<T, Double> fitFunc; // fitness function
     private final Comparator<T> fitComp; // fitness comparator
 
-    public MINMAX(ArrayList<T> states, int maxDepth, Function<T, Double> fitFunc) {
+    public MINMAX(ArrayList<ArrayList<T>> adjstates, int maxDepth, Function<T, Double> fitFunc) {
         this.maxDepth = maxDepth;
-        this.states = states
+        this.adjstates = adjstates;
         
         this.fitFunc = fitFunc;
         this.fitComp = Comparator.comparing(fitFunc).reversed();
     }
-
-    // as is this is a recursive function that returns the last found value from maxing and then nimimising but does not backtrack, does not use arraylists and only uses pre made scores
-    public T minMaxSearch(int depth, int nodeIndex, boolean isMax, int[] scores) {
-        // needs to change scores to a generic type array/list
-        if (depth == maxDepth) {
-            return scores[nodeIndex];
+	
+    public T minMaxSearch(int depth, int currentIndex, boolean isMax) {
+		ArrayList<T> optimalChoice = new ArrayList<>(maxDepth);
+		for (T neighbor : adjStates.get(currentIndex)) {
+            if (isMax) {
+            	return Math.max(minMaxUtil(depth+1, currentIndex*2, false), minMaxUtil(depth+1, currentIndex*2 + 1, false));
+        	} else {
+            	return Math.min(minMaxUtil(depth+1, currentIndex*2, true), minMaxUtil(depth+1, currentIndex*2 + 1, true));
+        	}
         }
         // needs to change math.max to a generic type evaluation function passed to it in parameters
+    }
+
+	public T minMaxUtil (int depth, int currentIndex, boolean isMax) {
+        if (depth == maxDepth) {
+            return adjStates.get(currentIndex);
+        }
+		
+        // needs to change math.max to a generic type evaluation function passed to it in parameters
         if (isMax) {
-            return Math.max(minimax(depth+1, nodeIndex*2, false, scores), minimax(depth+1, nodeIndex*2 + 1, false, scores));
+            return Math.max(minMaxUtil(depth+1, currentIndex*2, false), minMaxUtil(depth+1, currentIndex*2 + 1, false));
         } else {
-            return Math.min(minimax(depth+1, nodeIndex*2, true, scores), minimax(depth+1, nodeIndex*2 + 1, true, scores));
+            return Math.min(minMaxUtil(depth+1, currentIndex*2, true), minMaxUtil(depth+1, currentIndex*2 + 1, true));
         }
     }
 
@@ -53,6 +69,13 @@ public class MINMAX<T> {
 
         return false;
     }
+
+	for (T neighbor : adj.get(currentIndex)) {
+            int neighborIndex = adj.indexOf(neighbor);
+            if (!visited.get(neighborIndex)) {
+                dfsUtil(adj, visited, neighbor, traversal, target);
+            }
+        }
 
     // for use in using comparitive functions
     public static int hillSearch(Function<T, T> fitness, Function<T> get_neighbors, T start) {
