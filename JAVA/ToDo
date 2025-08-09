@@ -18,11 +18,11 @@ Go thorugh:
   - GS
   - HILL
   - A*
+  - MINMAX
 
   SORTS:
 
   SEARCHES:
-    - MINMAX
     - SentinelLinearSearch
     - MetaBinarySearch | One-SidedBinarySearch
     - TernarySearch
