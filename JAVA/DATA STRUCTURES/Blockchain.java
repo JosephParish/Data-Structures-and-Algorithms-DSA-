@@ -274,3 +274,4 @@ public enum TypeOfBlock {
     PoW, PoS, PoA
 }
 
+
