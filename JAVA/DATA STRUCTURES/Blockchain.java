@@ -273,3 +273,4 @@ public class Encryption_Signature {
 public enum TypeOfBlock {
     PoW, PoS, PoA
 }
+
