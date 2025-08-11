@@ -11,7 +11,7 @@ import java.util.Base64;
  *  This has been created with further implementation in mind (for validation).
  *
  *  These are future improvements I would make:
- *      1. implement the validation processes (miners for PoW, voting for PoS, Authorities for PoA) and It has been created with this in mind
+ *      1. implement the validation processes (miners for PoW, voting for PoS, Authorities for PoA) // acutal implementation pending, should be as secure as possible
  *      2. implement a checking algorithm to reject/remove invalid blocks
  *      3. add a space for blocks to go for validation and make it so blocks can be made unverified
  */
