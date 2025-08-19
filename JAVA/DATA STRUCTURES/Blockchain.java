@@ -1,275 +1,274 @@
-import java.util.Arrays;
+import java.util.*;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.crypto.Cipher;
 import java.security.*;
+import javax.crypto.Cipher;
 import java.util.Base64;
 
-/**
- *  This is a Blockchain structure with the ability to create blocks and chain them through hashes.
- *  This has been created with further implementation in mind (for validation).
- *
- *  These are future improvements I would make:
- *      1. implement the validation processes (miners for PoW, voting for PoS, Authorities for PoA) // acutal implementation pending, should be as secure as possible
- *      2. implement a checking algorithm to reject/remove invalid blocks
- *      3. add a space for blocks to go for validation and make it so blocks can be made unverified
- */
+
+// ----------------------------- Main.java -----------------------------
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Blockchain chain = new Blockchain(0x0d00ffffL);
+
+        Block block1 = Block.createPoSBlock(
+            chain.chain.get(chain.chain.size() - 1).getHash(),
+            Arrays.stream(TransactionalData.T1).map(Transaction::toString).toArray(String[]::new),
+            TransactionalData.S1,
+            75
+        );
+
+        Block block2 = Block.createPoABlock(
+            block1.getHash(),
+            Arrays.stream(TransactionalData.T2).map(Transaction::toString).toArray(String[]::new),
+            TransactionalData.S2,
+            TransactionalData.AUTH_S2
+        );
+
+        chain.submitBlock(block1);
+        chain.submitBlock(block2);
+        chain.processPendingBlocks();
+        chain.printChain();
+    }
+}
+
+// ----------------------------- Blockchain.java -----------------------------
 
 public class Blockchain {
-    
-    private ArrayList<Block> blockChain = new ArrayList<>();
-    private String outputData = "\nThis is the blockchain created:\n\n";
-    private BigInteger targetHash;
-    //----------------------------------------------------------------------------------------------------------------
-    public Blockchain(long difficultyTarget) {
-        
-        this.targetHash = generateTargetHash(difficultyTarget);
+    private final List<Block> chain = new ArrayList<>();
+    private final Queue<Block> unverifiedBlocks = new LinkedList<>();
+    private final BigInteger targetHash;
+
+    public Blockchain(long compactDifficulty) {
+        this.targetHash = generateTarget(compactDifficulty);
+        Block genesis = Block.createPoWBlock(0, TransactionalData.GENESIS_T, TransactionalData.GENESIS_S, 0L);
+        chain.add(genesis);
     }
-    //----------------------------------------------------------------------------------------------------------------
-    public static void main(String[] args) {
+
+    public void submitBlock(Block block) {
+        unverifiedBlocks.add(block);
+    }
+
+    public void processPendingBlocks() {
+        while (!unverifiedBlocks.isEmpty()) {
+            Block block = unverifiedBlocks.poll();
+            if (validate(block)) {
+                chain.add(block);
+                System.out.println("Block added: " + block.getHash());
+            } else {
+                System.out.println("Block rejected: " + block.getHash());
+            }
+        }
+    }
+
+    private boolean validate(Block block) { 
+        if (!block.verifyTransactionSignatures()) {
+            return false;
+        } 
         
-        Blockchain blockchain = new Blockchain(0x0d00ffffL); // Example difficulty target in compact format
+        switch (block.getType()) {
+            case PoW -> return new BigInteger(1, block.getHashBytes()).compareTo(targetHash) < 0;
+            case PoS -> return block.getVotes() > 50;
+            case PoA -> return block.hasValidAuthoritySignature();
+            default -> return false;
+        }
+    }
 
-        //Starts Blockchain with an empty Block
-        Block genisis = new Block(0, TransactionalData.Genisis, null, (long) 0);
+    private BigInteger generateTarget(long compact) {
+        int exp = (int)(compact >> 24);
+        int mantissa = (int)(compact & 0x007fffffL);
+        if ((compact & 0x00800000L) != 0) mantissa |= 0xff800000;
+        return BigInteger.valueOf(mantissa).shiftLeft(8 * (exp - 3));
+    }
 
-        //1st Block
-        Block one = new Block(genisis.getMyhash(), TransactionalData.transactions1, TransactionalData.signatures1, 52);
+    public void printChain() {
+        chain.forEach(b -> System.out.println(b));
+    }
+}
 
-        //2nd Block
-        String[] contents = new String[]{"96584076" + Arrays.hashCode(TransactionalData.transactions2)};
-        String signature;
+// ----------------------------- Block.java -----------------------------
+
+enum TypeOfBlock { PoW, PoS, PoA }
+
+class Block {
+    private final TypeOfBlock type;
+    private final long nonce;
+    private final int votes;
+    private final String authoritySignature;
+
+    private final int previousHash;
+    private final String[] transactions;
+    private final String[] signatures;
+    private final byte[] hashBytes;
+
+    private final Map<String, PublicKey> pubKeyMap;
+
+    private Block(TypeOfBlock type, int previousHash, String[] t, String[] s, long nonce, int votes, String authS, Map<String, PublicKey> keys) throws Exception {
+        this.type = type;
+        this.previousHash = previousHash;
+        this.transactions = t;
+        this.signatures = s;
+        this.nonce = nonce;
+        this.votes = votes;
+        this.authoritySignature = authyS;
+        this.pubKeyMap = keys;
+        this.hashBytes = computeHashBytes();
+    }
+
+    public static Block createPoWBlock(int prevHash, String[] t, String[] s, long nonce) throws Exception {
+        return new Block(TypeOfBlock.PoW, prevHash, t, s, nonce, 0, null, getAuthorityKeys());
+    }
+
+    public static Block createPoSBlock(int prevHash, String[] t, String[] s, int votes) throws Exception {
+        return new Block(TypeOfBlock.PoS, prevHash, t, s, 0, votes, null, getAuthorityKeys());
+    }
+
+    public static Block createPoABlock(int prevHash, String[] t, String[] s, String authS) throws Exception {
+        return new Block(TypeOfBlock.PoA, prevHash, t, s, 0, 0, authS, getAuthorityKeys());
+    }
+
+    static Map<String, PublicKey> getAuthorityKeys() {
+        Map<String, PublicKey> map = new HashMap<>();
+        for (EncryptionSignature e : TransactionalData.AUTHORITIES) {
+            map.put(e.name, e.publicKey);
+        }
+        return map;
+    }
+
+    private byte[] computeHashBytes() throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digest.update(Integer.toString(previousHash).getBytes());
+        for (String t : transactions) digest.update(t.getBytes());
+        if (type == TypeOfBlock.PoW) digest.update(Long.toString(nonce).getBytes());
+        return digest.digest();
+    }
+
+    public boolean verifySignatures() {
         try {
-            signature = TransactionalData.Authority1.encrypt(Arrays.toString(contents));
+            for (int i = 0; i < transactions.length; i++) {
+                String t = transactions[i];
+                String s = signatures[i];
+                
+                for (EncryptionSignature user : TransactionalData.USERS) {
+                    if (user.verify(t, s)) {
+                        break;
+                    }
+                }
+            }
+            return true;
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Block two = new Block(one.getMyhash(), TransactionalData.transactions2, TransactionalData.signatures2, signature);
-
-
-        Block[] Blocks = new Block[]{genisis, one, two};
-        blockchain.addBlock(Blocks);
-
-        System.out.println(blockchain.outputData + blockchain.iterateThroughBlocks());
-        System.out.println("Target Hash: " + blockchain.targetHash);
-
-
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    private static BigInteger generateTargetHash(long DT) {
-        /**
-         * generate a hash to be solved by a miner
-         */
-        int exponent = (int) (DT >> 24);
-        int mantissa = (int) (DT & 0x007fffffL);
-        if ((DT & 0x00800000L) != 0) {
-            mantissa |= 0xff800000;
-        }
-        BigInteger target = BigInteger.valueOf(mantissa).shiftLeft(8 * (exponent - 3));
-        return target;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public void addBlock(Block[] Block) {
-        for (int i = 0; i < Block.length; i++) {
-            blockChain.add(Block[i]);
+            return false;
         }
     }
-    //----------------------------------------------------------------------------------------------------------------
-    public void addBlock(Block Block) {
-        blockChain.add(Block);
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public String iterateThroughBlocks() {
-            String returnStatement = "";
-            for (int i = 0; i < blockChain.size(); i++) {
-                returnStatement += blockChain.get(i).toString() + " \n";
+
+    public boolean isValidPOA() {
+        try {
+            for (EncryptionSignature auth : TransactionalData.AUTHORITIES) {
+                if (auth.verify(Integer.toString(Arrays.hashCode(transactions)), authoritySignature)) {
+                    return true;
+                }
             }
-            return returnStatement;
-        }
-    //----------------------------------------------------------------------------------------------------------------
-    public Boolean validateBlock(Block Block) {
-        Boolean returnStatement = false;
-            switch(Block.getTypeOfBlock()) {
-                case PoW -> if(){returnStatement == true} nonce;                                         // IMPLEMENT ME
-                case PoS -> if(votesOutOf100 > 50){returnStatement == true} votesOutOf100;               // Make me more secure
-                case PoA -> if(){returnStatement == true} authoritySignature;                            // IMPLEMENT ME
-            }
-        return returnStatement;
-        }
-    //----------------------------------------------------------------------------------------------------------------
+        } catch (Exception ignored) {}
+        return false;
+    }
+
+    public byte[] getHashBytes() { return hashBytes; }
+    public int getHash() { return Arrays.hashCode(hashBytes); }
+    public TypeOfBlock getType() { return type; }
+    public int getVotes() { return votes; }
+
     @Override
     public String toString() {
-        return iterateThroughBlocks();
+        return "Block" +
+               "type = " + type +
+               ", prevHash = " + previousHash +
+               ", hash = " + getHash() +
+               ", txCount = " + transactions.length + 
+                (type == TypeOfBlock.PoW ? ", nonce = " + nonce : type == TypeOfBlock.PoS ? ", votes = " + votes : ", authSig = " + authoritySignature) +
+               " }";
     }
-    //---------------------------------------------------------------------------------------------------------------
 }
-//--------------------------------------------------------------------------------------------------------------------
-class TransactionalData {
-    
-    static Encryption_Signature User1 = new Encryption_Signature("Apollo");
-    static Encryption_Signature User2 = new Encryption_Signature("Ares");
-    static Encryption_Signature User3 = new Encryption_Signature("Dionysus");
-    static Encryption_Signature User4 = new Encryption_Signature("Hephaestus");
-    static String[] Genisis = {"Apollo is given 20 coins", "Ares is given 20 coins", "Dionysus is given 20 coins", "Hephaestus is given 20 coins"};
-    static String[] transactions1 = {"Apollo gives 20 coins to Ares", "Ares gives 20 coins to Apollo"};
-    static String[] transactions2 = {"Dionysus gives 20 coins to Apollo", "Apollo gives 40 coins to Hephaestus"};
 
-    static String[] signatures1;
-    static String[] signatures2;
+// ----------------------------- Transaction.java -----------------------------
+
+class Transaction {
+    final int num, payer, payee;
+    Transaction(int num, int payer, int payee) { this.num = num; this.payer = payer; this.payee = payee; }
+
+    @Override
+    public String toString() {
+        return String.format("Transaction(num=%d, payer=%d, payee=%d)", num, payer, payee);
+    }
+}
+
+// ----------------------------- EncryptionSignature.java -----------------------------
+
+class EncryptionSignature {
+    final PublicKey publicKey;
+    private final PrivateKey privateKey;
+    final String name;
+
+    EncryptionSignature(String name) throws Exception {
+        this.name = name;
+        KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA");
+        gen.initialize(1024);
+        KeyPair kp = gen.generateKeyPair();
+        this.privateKey = kp.getPrivate();
+        this.publicKey = kp.getPublic();
+    }
+
+    String sign(String msg) throws Exception {
+        Signature sg = Signature.getInstance("SHA256withRSA");
+        sg.initSign(privateKey);
+        sg.update(msg.getBytes());
+        return Base64.getEncoder().encodeToString(sg.sign());
+    }
+
+    boolean verify(String msg, String signature) throws Exception {
+        Signature s = Signature.getInstance("SHA256withRSA");
+        s.initVerify(publicKey);
+        s.update(msg.getBytes());
+        return s.verify(Base64.getDecoder().decode(signature));
+    }
+}
+
+// ----------------------------- TransactionalData.java -----------------------------
+
+class TransactionalData {
+    static final EncryptionSignature USER1, USER2, USER3, USER4;
+    static final EncryptionSignature AUTH1, AUTH2;
+    static final EncryptionSignature[] USERS, AUTHORITIES;
+
+    static final Transaction[] GENESIS_T, T1, T2;
+    static final String[] GENESIS_S, S1, S2;
+    static final String AUTH_S2;
+
     static {
         try {
-            signatures1 = new String[]{User1.encrypt(transactions1[0]), User2.encrypt(transactions1[1])};
-            signatures2 = new String[]{User3.encrypt(transactions2[0]), User1.encrypt(transactions2[1])};
+            USER1 = new EncryptionSignature("Apollo");
+            USER2 = new EncryptionSignature("Ares");
+            USER3 = new EncryptionSignature("Dionysus");
+            USER4 = new EncryptionSignature("Hephaestus");
+            USERS = new[] { USER1, USER2, USER3, USER4 };
+
+            AUTH1 = new EncryptionSignature("Momus");
+            AUTH2 = new EncryptionSignature("Moros");
+            AUTHORITIES = new[] { AUTH1, AUTH2 };
+
+            GENESIS_T = new[] { new Transaction(20, 0, 1), new Transaction(20, 0, 2), new Transaction(20, 0, 3), new Transaction(20, 0, 4) };
+            T1 = new[] { new Transaction(20, 2, 1), new Transaction(20, 1, 2) };
+            T2 = new[] { new Transaction(20, 1, 3), new Transaction(40, 3, 1) };
+
+            GENESIS_S = Arrays.stream(GENESIS_TRANSACTIONS)
+                                 .map(Transaction::toString)
+                                 .map(USER1::sign)
+                                 .toArray(String[]::new);
+            S1 = new String[] { USER1.sign(TXS1[0].toString()), USER2.sign(TXS1[1].toString()) };
+            S2 = new String[] { USER3.sign(TXS2[0].toString()), USER1.sign(TXS2[1].toString()) };
+
+            AUTH_S2 = AUTH1.sign(Integer.toString(Arrays.hashCode(TXS2)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    static Encryption_Signature[] accounts1 = {User1, User2, User3, User4};
-
-    //PoA
-    static Encryption_Signature Authority1 = new Encryption_Signature("Momus");
-    static Encryption_Signature Authority2 = new Encryption_Signature("Moros");
-    static Encryption_Signature[] Authorities = {Authority1, Authority2};
-
-}
-
-public class Block {
-    
-    private int previoushash;
-    private String[] transactions;
-    private String[] signatures;
-    private Object[] contents;
-    private int myhash;
-
-    private long nonce;
-    private int votesOutOf100;
-    private String authoritySignature;
-
-    private TypeOfBlock typeOfBlock;
-    //----------------------------------------------------------------------------------------------------------------
-    //PoW
-    public Block(int previoushash, String[] transactions, String[] signatures, long nonce) {
-        
-        this.previoushash = previoushash;
-        this.transactions = transactions;
-        this.signatures = signatures;
-
-        this.typeOfBlock = TypeOfBlock.PoW;
-        this.nonce = nonce;
-
-        this.contents = new Object[]{Arrays.hashCode(transactions), previoushash, nonce};
-        this.myhash = Arrays.hashCode(contents);
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    //PoS
-    public Block(int previoushash, String[] transactions, String[] signatures, int votesOutOf100) {
-        
-        this.previoushash = previoushash;
-        this.transactions = transactions;
-        this.signatures = signatures;
-
-        this.typeOfBlock = TypeOfBlock.PoS;
-        this.votesOutOf100 = votesOutOf100;
-
-        this.contents = new Object[]{Arrays.hashCode(transactions), previoushash};
-        this.myhash = Arrays.hashCode(contents);
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    //PoA
-    public Block(int previoushash, String[] transactions, String[] signatures, String authoritySignature) {
-        
-        this.previoushash = previoushash;
-        this.transactions = transactions;
-        this.signatures = signatures;
-
-        this.typeOfBlock = TypeOfBlock.PoA;
-        this.authoritySignature = authoritySignature;
-
-        this.contents = new Object[]{Arrays.hashCode(transactions), previoushash};
-        this.myhash = Arrays.hashCode(contents);
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public int getMyhash() {
-        return myhash;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public int getPrevioushash() {
-        return previoushash;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public String[] getTransactions() {
-        return transactions;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public TypeOfBlock getTypeOfBlock() {
-        return typeOfBlock;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    @Override
-    public String toString() {
-        
-        String returnStatement = "This is a " + typeOfBlock + " with " + transactions.length + " transactions." +
-                "\n Previous Hash: " + previoushash +
-                "\n My Hash: " + myhash;
-        switch(typeOfBlock) {
-            case PoW -> returnStatement += "\n Proof of Validity: " + nonce;
-            case PoS -> returnStatement += "\n Proof of Validity: " + votesOutOf100;
-            case PoA -> returnStatement += "\n Proof of Validity: " + authoritySignature;
-        }
-        return returnStatement + "\n";
-    }
-    //----------------------------------------------------------------------------------------------------------------
-}
-
-public class Encryption_Signature {
-    
-    private PrivateKey privateKey;
-    public PublicKey publicKey;
-    public String name;
-    //----------------------------------------------------------------------------------------------------------------
-    public Encryption_Signature(String name) {
-        initializer();
-        this.name = name;
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public void initializer() {
-        
-        try {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(1024);
-            KeyPair pair = generator.generateKeyPair();
-            this.privateKey = pair.getPrivate();
-            this.publicKey = pair.getPublic();
-        }
-        catch (Exception ignored) {
-        }
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    private static String encode(byte[] data) {return Base64.getEncoder().encodeToString(data);}
-    //----------------------------------------------------------------------------------------------------------------
-    private static byte[] decode(String data) {return Base64.getDecoder().decode(data);}
-    //----------------------------------------------------------------------------------------------------------------
-    public String encrypt(String message) throws Exception {
-        
-        byte[] messageToBytes = message.getBytes();
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-        byte[] encryptedBytes = cipher.doFinal(messageToBytes);
-        return encode(encryptedBytes);
-    }
-    //----------------------------------------------------------------------------------------------------------------
-    public String decrypt(String encryptedMessage) throws Exception {
-        
-        byte[] encryptedBytes = decode(encryptedMessage);
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-        cipher.init(Cipher.DECRYPT_MODE, publicKey);
-        byte[] decryptedMessage = cipher.doFinal(encryptedBytes);
-        return new String(decryptedMessage, "UTF8");
-    }
-    //----------------------------------------------------------------------------------------------------------------
-}
-
-public enum TypeOfBlock {
-    PoW, PoS, PoA
 }
