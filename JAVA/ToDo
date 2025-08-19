@@ -20,6 +20,9 @@ Go thorugh:
   - A*
   - MINMAX
 
+Further Improvements:
+ - BLOCKCHAIN
+
   SORTS:
 
   SEARCHES:
@@ -40,4 +43,3 @@ DATA STRUCTURES:
  - STACK
  - QUEUE
  - HEAP
- - BLOCKCHAIN
