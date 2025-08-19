@@ -4,6 +4,14 @@ import java.security.*;
 import javax.crypto.Cipher;
 import java.util.Base64;
 
+/**
+ *  This is a Blockchain structure with the ability to create blocks and chain them through hashes.
+ *  This has been created with further implementation in mind.
+ *
+ *  These are future improvements I would make:
+ *      1.  implement a checking algorithm to reject/remove invalid blocs
+ *      2.  implement an algorithm to check and handle forking
+ */
 
 // ----------------------------- Main.java -----------------------------
 
