@@ -1,36 +1,32 @@
 import java.util.ArrayList;
 
-// a Stack (LIFO last in first out)
+// a Queue (FIFO first in first out)
 
-public class STACK<T> {
-    private ArrayList<T> stack = new ArrayList<T>();
-    private int pointer = 0;
+public class QUEUE<T> {
+    private ArrayList<T> queue = new ArrayList<T>();
 
-    public push(T t) {
-      if(!stack.isEmpty()){
-        pointer++;
-      }
-      stack.add(t)
+    public enqueue(T t) {
+      queue.add(t)
     }
 
-    public T pop() {
-      if(!stack.isEmpty()){
-        T t = stack.get(pointer);
-        stack.remove(pointer);
-        pointer--;
-        return t;
-      }
-      return null;
+    public T dequeue() {
+        if (isEmpty()) {
+            return null
+        }
+        return queue.remove(0);
     }
-
+    
     public T peek() {
-      return stack.get(pointer)
+        if (isEmpty()) {
+            return null
+        }
+        return queue.get(0);
     }
 
     @Override
     public String toString() {
       String returnString = "";
-      for (T t : stack) {
+      for (T t : queue) {
         returnString += t.toString();
       }
         return returnString;
