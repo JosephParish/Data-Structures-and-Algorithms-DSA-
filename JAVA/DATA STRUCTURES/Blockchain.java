@@ -9,7 +9,7 @@ import java.util.Base64;
  *  This has been created with further implementation in mind.
  *
  *  These are future improvements I would make:
- *      1.  implement a checking algorithm to reject/remove invalid blocs
+ *      1.  implement a checking algorithm to reject/remove invalid blocks
  *      2.  implement an algorithm to check and handle forking
  */
 
