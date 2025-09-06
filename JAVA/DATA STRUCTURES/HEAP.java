@@ -1,37 +1,73 @@
 import java.util.*;
 
-public class HEAP {
-  private TREE binaryTree;
-  private boolean isMin;
+public class HEAP<T extends Comparable<T>> {
+    private BINARYTREE<T> binaryTree;
+    private boolean isMinHeap;
+    private Comparator<T> comparator;
 
-//comparitor
-  
-  public HEAP(TREE binaryTree, boolean isMin){ // and pass a comparitor function for T
-    this.binaryTree = binaryTree;
-    this.isMinHeap = isMin;
+    public HEAP(BINARYTREE<T> binaryTree, boolean isMin) {
+        this.binaryTree = binaryTree;
+        this.isMinHeap = isMin;
+        this.comparator = isMin ? Comparator.naturalOrder() : Comparator.reverseOrder();
+    }
 
-    //comparitor
+    private void heapifyDown(NODE<T> node) {
+        while (node != null) {
+          List<NODE<T>> children = node.getChildren();
+          NODE<T> selected = node;
+
+          for (NODE<T> child : children) {
+              if (child != null && comparator.compare(child.getValue(), selected.getValue()) < 0) {
+                  selected = child;
+              }
+          }
+
+          if (selected == node) break;
+
+          T temp = node.getValue();
+          node.setValue(selected.getValue());
+          selected.setValue(temp);
+
+          node = selected;
+      }
   }
 
-  private void sortHeap(){
-    // use comparitor on binaryTree
-  }
+    private void sortHeap() {
+        List<NODE<T>> nodes = binaryTree.getNodesInLevelOrder();
+        for (int i = nodes.size() - 1; i >= 0; i--) {
+            heapifyDown(nodes.get(i));
+        }
+    }
 
-  public void add(NODE node){ //perhaps change node to be a value that is then declared as a node and possibly check if it is the same type as the rest of the nodes (integer, string etc)
-    binaryTree.addNode(node);
-    sortHeap();
-  }
-  public void remove(NODE node){
-    binaryTree.removeNode(node);
-    sortHeap();
-  }
-  public NODE getRoot(){
-    return binaryTree.getRootNode();
-  }
-  public boolean getIsMin(){
-    return isMin;
-  }
-  public TREE getHeap(){
-    return binaryTree;
-  }
+    public void add(T value) {
+        NODE<T> newNode = new NODE<>(value);
+        binaryTree.addNode(newNode);
+    }
+
+    public void remove(NODE<T> node) {
+        NODE<T> last = binaryTree.getLastNode();
+
+        if (last == null || node == null) return;
+
+        if (node == last) {
+            binaryTree.removeNode(last);
+            return;
+        }
+
+        node.setValue(last.getValue());
+        binaryTree.removeNode(last);
+        heapifyDown(node);
+    }
+
+    public NODE<T> getRoot() {
+        return binaryTree.getRootNode();
+    }
+
+    public boolean getIsMin() {
+        return isMinHeap;
+    }
+
+    public BINARYTREE<T> getHeap() {
+        return binaryTree;
+    }
 }
