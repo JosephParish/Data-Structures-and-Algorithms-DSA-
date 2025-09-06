@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class NODE<T> {
-  private NDOE parent;
+  private NODE parent;
   private ArrayList<NODE> children;
   private T value;
   
-  public NODE(NDOE parent, ArrayList<NODE> children, T value) {
+  public NODE(NODE parent, ArrayList<NODE> children, T value) {
     this.parent = parent;
     this.children = children;
     this.value = value;
