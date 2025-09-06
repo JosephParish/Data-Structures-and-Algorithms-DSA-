@@ -51,6 +51,27 @@ public class BINARYTREE {
         }
     }
 
+    public NODE<T> getLastNode() {
+        if (rootNode != null){
+
+            Queue<NODE<T>> queue = new LinkedList<>();
+            queue.add(rootNode);
+            NODE<T> last = null;
+
+            while (!queue.isEmpty()) {
+                last = queue.poll();
+
+                for (NODE<T> child : last.getChildren()) {
+                    if (child != null) {
+                        queue.add(child);
+                    }
+                }
+            }
+
+            return last;
+        }
+    }
+
     public NODE getRootNode() {
         return rootNode;
     }
