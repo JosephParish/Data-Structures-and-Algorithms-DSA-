@@ -20,6 +20,13 @@ Go thorugh:
   - A*
   - MINMAX
 
+  - QUEUE
+  - STACK
+  - NODE
+  - TREE
+  - BLOCKCHAIN
+  - HEAP
+
 Further Improvements:
  - BLOCKCHAIN
 
@@ -36,8 +43,7 @@ Further Improvements:
     - UbiquitousBinarySearch
 
 - median - finds median in an unsorted array/list
+- heapify - turns an array into a heap
 
 DATA STRUCTURES:
- - TREE
  - LINKEDLIST
- - HEAP
