@@ -11,6 +11,10 @@ public class NODE<T> {
     this.value = value;
   }
 
+ public NODE(T value) {
+    this.value = value;
+  }
+
   public NODE getParent(){
     return parent;
   }
@@ -20,7 +24,13 @@ public class NODE<T> {
   public T getValue(){
     return value;
   }
+  public NODE setParent(NODE parent){
+    this.parent = parent;
+  }
   public void addChild(NODE child) {
     children.add(child);
+  }
+  public void removeChild(NODE child) {
+    children.remove(child);
   }
 }
