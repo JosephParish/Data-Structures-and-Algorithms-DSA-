@@ -34,12 +34,13 @@ Further Improvements:
   SORTS:
 
   SEARCHES:
+    - TernarySearch
+    - ExponentialSearch
+
     - SentinelLinearSearch
     - MetaBinarySearch | One-SidedBinarySearch
-    - TernarySearch
     - JumpSearch
     - InterpolationSearch
-    - ExponentialSearch
     - FibonacciSearch
     - UbiquitousBinarySearch
 
