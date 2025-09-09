@@ -26,6 +26,7 @@ Go thorugh:
   - TREE
   - BLOCKCHAIN
   - HEAP
+   - LINKEDLIST
 
 Further Improvements:
  - BLOCKCHAIN
@@ -46,4 +47,3 @@ Further Improvements:
 - heapify - turns an array into a heap
 
 DATA STRUCTURES:
- - LINKEDLIST
