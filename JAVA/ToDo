@@ -20,13 +20,13 @@ Go thorugh:
   - A*
   - MINMAX
 
-  - QUEUE
+  - QUEUE (need to do Circular, Priority and Deque)
   - STACK
   - NODE
   - TREE
   - BLOCKCHAIN
   - HEAP
-   - LINKEDLIST
+  - LINKEDLIST (need to do Circular and Deque)
 
 Further Improvements:
  - BLOCKCHAIN
@@ -43,7 +43,31 @@ Further Improvements:
     - FibonacciSearch
     - UbiquitousBinarySearch
 
-- median - finds median in an unsorted array/list
-- heapify - turns an array into a heap
+  -	Bellman-Ford Algorithm
+  -	Floyd-Warshall Algorithm
+  -	Prim’s Algorithm
+  -	Kruskal’s Algorithm
+
+  - median - finds median in an unsorted array/list
+  - heapify - turns an array into a heap
 
 DATA STRUCTURES:
+  -	Adjacency Matrix
+  -	Adjacency List
+  -	Edge List
+  -	Weighted Graphs
+  -	Directed / Undirected Graphs
+  - Hash Table
+  - Hash Set
+
+  - AVL Tree 
+  -	Red-Black Tree
+  -	Segment Tree
+  -	Fenwick Tree (Binary Indexed Tree)
+  -	Trie (Prefix Tree)
+  -	B-Tree / B+ Tree
+  -	Disjoint Set (Union-Find)
+  -	Bloom Filter
+  -	Suffix Tree / Suffix Array
+  -	LRU Cache
+  -	Skip List
