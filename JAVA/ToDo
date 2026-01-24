@@ -2,7 +2,7 @@ Algorithms ToDo:
 - Big O Notation
 - Specifiy best usage for code (small datasets, little variance in data, etc)
 - Format all code to be exactly the same (spacing, {}, wording/comments, etc)
-- Test Units
+- Test Units - The package name in tests must match the package name of the class being tested.
 - Rename and Reformat apropriately
 
 New Format:
