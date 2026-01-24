@@ -1,9 +1,11 @@
 Algorithms ToDo:
 - Big O Notation
-- specifiy best usage for code (small datasets, little variance in data, etc)
-- format all code to be exactly the same (spacing, {}, wording/comments, etc)
+- Specifiy best usage for code (small datasets, little variance in data, etc)
+- Format all code to be exactly the same (spacing, {}, wording/comments, etc)
+- Test Units
+- Rename and Reformat apropriately
 
-Go thorugh:
+Go thorugh / Redo:
   - IntroSort
   - Tim Sort
   - BucketSort
