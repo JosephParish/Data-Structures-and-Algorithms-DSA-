@@ -1,21 +1,367 @@
-Algorithms ToDo:
-- Big O Notation
-- Specifiy best usage for code (small datasets, little variance in data, etc)
-- Format all code to be exactly the same (spacing, {}, wording/comments, etc)
-- Test Units - The package name in tests must match the package name of the class being tested.
-- Rename and Reformat apropriately
+# Repository Structure
 
-New Format:
-src/ Java/ Algorithms/ Sorts/ Advanced/ ...
-                              Basic/ ...
-                       Searches/ Advanced/ ...
-                                 Basic/ ...
-           DataStructures/ Advanced/ ...
-                           Basic/ ...
-     Tests/ Java/ ...
-     README
+```text
+.
+├── README.md
+├── src
+│   └── java
+│       ├── datastructures
+│       │   ├── linear
+│       │   │   ├── ArrayList.java
+│       │   │   ├── LinkedList.java
+│       │   │   ├── SkipList.java
+│       │   │   ├── Stack.java
+│       │   │   ├── Queue.java
+│       │   │   ├── CircularQueue.java
+│       │   │   └── Deque.java
+│       │   │
+│       │   ├── hash
+│       │   │   ├── HashTable.java
+│       │   │   ├── HashMap.java
+│       │   │   ├── HashSet.java
+│       │   │   └── BloomFilter.java
+│       │   │
+│       │   ├── cache
+│       │   │   └── LRUCache.java
+│       │   │
+│       │   ├── heaps
+│       │   │   ├── MinHeap.java
+│       │   │   ├── MaxHeap.java
+│       │   │   └── PriorityQueue.java
+│       │   │
+│       │   ├── trees
+│       │   │   ├── BinaryTree.java
+│       │   │   ├── BinarySearchTree.java
+│       │   │   ├── AVLTree.java
+│       │   │   ├── RedBlackTree.java
+│       │   │   ├── BTree.java
+│       │   │   ├── BPlusTree.java
+│       │   │   ├── Trie.java
+│       │   │   ├── SegmentTree.java
+│       │   │   ├── FenwickTree.java
+│       │   │   ├── SuffixTree.java
+│       │   │   └── SuffixArray.java
+│       │   │
+│       │   ├── graphs
+│       │   │   ├── Graph.java
+│       │   │   ├── DirectedGraph.java
+│       │   │   ├── UndirectedGraph.java
+│       │   │   ├── WeightedGraph.java
+│       │   │   ├── AdjacencyList.java
+│       │   │   ├── AdjacencyMatrix.java
+│       │   │   └── DisjointSet.java
+│       │   │
+│       │   └── experimental
+│       │       └── Blockchain.java
+│       │
+│       ├── algorithms
+│       │   ├── sorting
+│       │   │   ├── comparison
+│       │   │   │   ├── BubbleSort.java
+│       │   │   │   ├── SelectionSort.java
+│       │   │   │   ├── InsertionSort.java
+│       │   │   │   ├── MergeSort.java
+│       │   │   │   ├── QuickSort.java
+│       │   │   │   ├── HeapSort.java
+│       │   │   │   ├── ShellSort.java
+│       │   │   │   └── CycleSort.java
+│       │   │   │
+│       │   │   ├── noncomparison
+│       │   │   │   ├── CountingSort.java
+│       │   │   │   ├── RadixSort.java
+│       │   │   │   ├── BucketSort.java
+│       │   │   │   └── PigeonholeSort.java
+│       │   │   │
+│       │   │   └── hybrid
+│       │   │       ├── IntroSort.java
+│       │   │       ├── TimSort.java
+│       │   │       └── DualPivotQuickSort.java
+│       │   │
+│       │   ├── searching
+│       │   │   ├── LinearSearch.java
+│       │   │   ├── BinarySearch.java
+│       │   │   ├── JumpSearch.java
+│       │   │   ├── ExponentialSearch.java
+│       │   │   ├── InterpolationSearch.java
+│       │   │   ├── TernarySearch.java
+│       │   │   ├── FibonacciSearch.java
+│       │   │   └── UbiquitousBinarySearch.java
+│       │   │
+│       │   ├── graph
+│       │   │   ├── BFS.java
+│       │   │   ├── DFS.java
+│       │   │   ├── Dijkstra.java
+│       │   │   ├── BellmanFord.java
+│       │   │   ├── FloydWarshall.java
+│       │   │   ├── AStar.java
+│       │   │   ├── Prim.java
+│       │   │   ├── Kruskal.java
+│       │   │   ├── TopologicalSort.java
+│       │   │   └── UnionFind.java
+│       │   │
+│       │   ├── dynamicprogramming
+│       │   │   ├── FibonacciDP.java
+│       │   │   ├── Knapsack.java
+│       │   │   ├── CoinChange.java
+│       │   │   ├── LongestCommonSubsequence.java
+│       │   │   └── LongestIncreasingSubsequence.java
+│       │   │
+│       │   ├── greedy
+│       │   │   ├── HuffmanCoding.java
+│       │   │   ├── ActivitySelection.java
+│       │   │   └── FractionalKnapsack.java
+│       │   │
+│       │   ├── backtracking
+│       │   │   ├── NQueens.java
+│       │   │   ├── SudokuSolver.java
+│       │   │   ├── RatInMaze.java
+│       │   │   └── HamiltonianCycle.java
+│       │   │
+│       │   ├── strings
+│       │   │   ├── KMP.java
+│       │   │   ├── RabinKarp.java
+│       │   │   ├── BoyerMoore.java
+│       │   │   ├── ZAlgorithm.java
+│       │   │   ├── SuffixArraySearch.java
+│       │   │   └── SuffixTreeSearch.java
+│       │   │
+│       │   └── gameai
+│       │       ├── Minimax.java
+│       │       └── AlphaBetaPruning.java
+│       │
+│       └── utils
+│           ├── Benchmark.java
+│           ├── ComplexityAnalyzer.java
+│           └── Printer.java
+│
+└── tests
+    └── java
+        ├── datastructures
+        │   ├── linear
+        │   ├── hash
+        │   ├── cache
+        │   ├── heaps
+        │   ├── trees
+        │   └── graphs
+        │
+        └── algorithms
+            ├── sorting
+            ├── searching
+            ├── graph
+            ├── dynamicprogramming
+            ├── greedy
+            ├── backtracking
+            ├── strings
+            └── gameai
+```
 
-Go thorugh / Redo:
+## Coverage
+
+### Data Structures
+
+#### Linear Structures
+
+- [ ] ArrayList
+- [ ] Linked List
+- [ ] Skip List
+- [ ] Stack
+- [ ] Queue
+- [ ] Circular Queue
+- [ ] Deque
+
+#### Hashing
+
+- [ ] Hash Table
+- [ ] Hash Map
+- [ ] Hash Set
+- [ ] Bloom Filter
+
+#### Cache Structures
+
+- [ ] LRU Cache
+
+#### Trees
+
+- [ ] Binary Tree
+- [ ] Binary Search Tree
+- [ ] AVL Tree
+- [ ] Red-Black Tree
+- [ ] B-Tree
+- [ ] B+ Tree
+- [ ] Trie
+- [ ] Segment Tree
+- [ ] Fenwick Tree
+- [ ] Suffix Tree
+- [ ] Suffix Array
+
+#### Heaps
+
+- [ ] Min Heap
+- [ ] Max Heap
+- [ ] Priority Queue
+
+#### Graph Structures
+
+- [ ] Graph
+- [ ] Directed Graph
+- [ ] Undirected Graph
+- [ ] Weighted Graph
+- [ ] Adjacency List
+- [ ] Adjacency Matrix
+- [ ] Disjoint Set (Union-Find)
+
+---
+
+### Algorithms
+
+#### Sorting
+
+##### Comparison Sorts
+
+- [ ] Bubble Sort
+- [ ] Selection Sort
+- [ ] Insertion Sort
+- [ ] Merge Sort
+- [ ] Quick Sort
+- [ ] Heap Sort
+- [ ] Shell Sort
+- [ ] Cycle Sort
+
+##### Non-Comparison Sorts
+
+- [ ] Counting Sort
+- [ ] Radix Sort
+- [ ] Bucket Sort
+- [ ] Pigeonhole Sort
+
+##### Hybrid Sorts
+
+- [ ] IntroSort
+- [ ] TimSort
+- [ ] Dual-Pivot QuickSort
+
+---
+
+#### Searching
+
+- [ ] Linear Search
+- [ ] Binary Search
+- [ ] Jump Search
+- [ ] Exponential Search
+- [ ] Interpolation Search
+- [ ] Ternary Search
+- [ ] Fibonacci Search
+- [ ] Ubiquitous Binary Search
+
+---
+
+#### Graph Algorithms
+
+##### Traversal
+
+- [ ] Breadth-First Search (BFS)
+- [ ] Depth-First Search (DFS)
+
+##### Shortest Path
+
+- [ ] Dijkstra
+- [ ] Bellman-Ford
+- [ ] Floyd-Warshall
+- [ ] A*
+
+##### Minimum Spanning Tree
+
+- [ ] Prim
+- [ ] Kruskal
+
+##### Other
+
+- [ ] Topological Sort
+- [ ] Union-Find
+
+---
+
+#### Dynamic Programming
+
+- [ ] Fibonacci
+- [ ] Knapsack
+- [ ] Coin Change
+- [ ] Longest Common Subsequence
+- [ ] Longest Increasing Subsequence
+
+---
+
+#### Greedy Algorithms
+
+- [ ] Huffman Coding
+- [ ] Activity Selection
+- [ ] Fractional Knapsack
+
+---
+
+#### Backtracking
+
+- [ ] N-Queens
+- [ ] Sudoku Solver
+- [ ] Rat in a Maze
+- [ ] Hamiltonian Cycle
+
+---
+
+#### String Algorithms
+
+- [ ] KMP
+- [ ] Rabin-Karp
+- [ ] Boyer-Moore
+- [ ] Z Algorithm
+- [ ] Suffix Array Search
+- [ ] Suffix Tree Search
+
+---
+
+#### Game AI
+
+- [ ] Minimax
+- [ ] Alpha-Beta Pruning
+
+---
+
+# Complexity Documentation
+
+Each implementation should include:
+
+- Description
+- Time Complexity
+- Space Complexity
+- Advantages
+- Disadvantages
+- Example Usage
+- Unit Tests
+
+Example:
+
+```java
+/**
+ * Quick Sort
+ *
+ * Best:    O(n log n)
+ * Average: O(n log n)
+ * Worst:   O(n²)
+ * Space:   O(log n)
+ */
+```
+
+---
+
+# Testing
+
+All implementations should include automated tests.
+
+```bash
+mvn test
+```
+
+# Go thorugh / Redo:
   - IntroSort
   - Tim Sort
   - BucketSort
@@ -40,47 +386,9 @@ Go thorugh / Redo:
   - HEAP
   - LINKEDLIST (need to do Circular and Deque)
 
-Further Improvements:
- - BLOCKCHAIN
-
-  SORTS:
-
-  SEARCHES:
-    - TernarySearch
-    - ExponentialSearch
-
-    - SentinelLinearSearch
-    - MetaBinarySearch | One-SidedBinarySearch
-    - JumpSearch
-    - InterpolationSearch
-    - FibonacciSearch
-    - UbiquitousBinarySearch
-
-  -	Bellman-Ford Algorithm
-  -	Floyd-Warshall Algorithm
-  -	Prim’s Algorithm
-  -	Kruskal’s Algorithm
-
-  - median - finds median in an unsorted array/list
-  - heapify - turns an array into a heap
-
-DATA STRUCTURES:
-  -	Adjacency Matrix
-  -	Adjacency List
-  -	Edge List
-  -	Weighted Graphs
-  -	Directed / Undirected Graphs
-  - Hash Table
-  - Hash Set
-
-  - AVL Tree 
-  -	Red-Black Tree
-  -	Segment Tree
-  -	Fenwick Tree (Binary Indexed Tree)
-  -	Trie (Prefix Tree)
-  -	B-Tree / B+ Tree
-  -	Disjoint Set (Union-Find)
-  -	Bloom Filter
-  -	Suffix Tree / Suffix Array
-  -	LRU Cache
-  -	Skip List
+Algorithms ToDo:
+- Big O Notation
+- Specifiy best usage for code (small datasets, little variance in data, etc)
+- Format all code to be exactly the same (spacing, {}, wording/comments, etc)
+- Test Units - The package name in tests must match the package name of the class being tested.
+- Rename and Reformat apropriately
