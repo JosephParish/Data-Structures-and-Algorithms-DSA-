@@ -162,10 +162,10 @@
 #### Linear Structures
 
 - [ ] ArrayList
-- [ ] Linked List
+- [x] Linked List
 - [ ] Skip List
-- [ ] Stack
-- [ ] Queue
+- [x] Stack
+- [x] Queue
 - [ ] Circular Queue
 - [ ] Deque
 
@@ -182,7 +182,7 @@
 
 #### Trees
 
-- [ ] Binary Tree
+- [x] Binary Tree
 - [ ] Binary Search Tree
 - [ ] AVL Tree
 - [ ] Red-Black Tree
@@ -196,8 +196,8 @@
 
 #### Heaps
 
-- [ ] Min Heap
-- [ ] Max Heap
+- [x] Min Heap
+- [x] Max Heap
 - [ ] Priority Queue
 
 #### Graph Structures
@@ -218,26 +218,26 @@
 
 ##### Comparison Sorts
 
-- [ ] Bubble Sort
-- [ ] Selection Sort
-- [ ] Insertion Sort
-- [ ] Merge Sort
-- [ ] Quick Sort
-- [ ] Heap Sort
+- [x] Bubble Sort
+- [x] Selection Sort
+- [x] Insertion Sort
+- [x] Merge Sort
+- [x] Quick Sort
+- [x] Heap Sort
 - [ ] Shell Sort
-- [ ] Cycle Sort
+- [x] Cycle Sort
 
 ##### Non-Comparison Sorts
 
-- [ ] Counting Sort
-- [ ] Radix Sort
-- [ ] Bucket Sort
-- [ ] Pigeonhole Sort
+- [x] Counting Sort
+- [x] Radix Sort
+- [x] Bucket Sort
+- [x] Pigeonhole Sort
 
 ##### Hybrid Sorts
 
-- [ ] IntroSort
-- [ ] TimSort
+- [x] IntroSort
+- [x] TimSort
 - [ ] Dual-Pivot QuickSort
 
 ---
@@ -259,15 +259,15 @@
 
 ##### Traversal
 
-- [ ] Breadth-First Search (BFS)
-- [ ] Depth-First Search (DFS)
+- [x] Breadth-First Search (BFS)
+- [x] Depth-First Search (DFS)
 
 ##### Shortest Path
 
 - [ ] Dijkstra
 - [ ] Bellman-Ford
 - [ ] Floyd-Warshall
-- [ ] A*
+- [x] A*
 
 ##### Minimum Spanning Tree
 
@@ -276,7 +276,7 @@
 
 ##### Other
 
-- [ ] Topological Sort
+- [x] Topological Sort
 - [ ] Union-Find
 
 ---
@@ -321,7 +321,7 @@
 
 #### Game AI
 
-- [ ] Minimax
+- [x] Minimax
 - [ ] Alpha-Beta Pruning
 
 ---
