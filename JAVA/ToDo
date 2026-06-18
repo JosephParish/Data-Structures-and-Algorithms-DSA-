@@ -5,55 +5,6 @@
 ├── README.md
 ├── src
 │   └── java
-│       ├── datastructures
-│       │   ├── linear
-│       │   │   ├── ArrayList.java
-│       │   │   ├── LinkedList.java
-│       │   │   ├── SkipList.java
-│       │   │   ├── Stack.java
-│       │   │   ├── Queue.java
-│       │   │   ├── CircularQueue.java
-│       │   │   └── Deque.java
-│       │   │
-│       │   ├── hash
-│       │   │   ├── HashTable.java
-│       │   │   ├── HashMap.java
-│       │   │   ├── HashSet.java
-│       │   │   └── BloomFilter.java
-│       │   │
-│       │   ├── cache
-│       │   │   └── LRUCache.java
-│       │   │
-│       │   ├── heaps
-│       │   │   ├── MinHeap.java
-│       │   │   ├── MaxHeap.java
-│       │   │   └── PriorityQueue.java
-│       │   │
-│       │   ├── trees
-│       │   │   ├── BinaryTree.java
-│       │   │   ├── BinarySearchTree.java
-│       │   │   ├── AVLTree.java
-│       │   │   ├── RedBlackTree.java
-│       │   │   ├── BTree.java
-│       │   │   ├── BPlusTree.java
-│       │   │   ├── Trie.java
-│       │   │   ├── SegmentTree.java
-│       │   │   ├── FenwickTree.java
-│       │   │   ├── SuffixTree.java
-│       │   │   └── SuffixArray.java
-│       │   │
-│       │   ├── graphs
-│       │   │   ├── Graph.java
-│       │   │   ├── DirectedGraph.java
-│       │   │   ├── UndirectedGraph.java
-│       │   │   ├── WeightedGraph.java
-│       │   │   ├── AdjacencyList.java
-│       │   │   ├── AdjacencyMatrix.java
-│       │   │   └── DisjointSet.java
-│       │   │
-│       │   └── experimental
-│       │       └── Blockchain.java
-│       │
 │       ├── algorithms
 │       │   ├── sorting
 │       │   │   ├── comparison
@@ -128,6 +79,55 @@
 │       │   └── gameai
 │       │       ├── Minimax.java
 │       │       └── AlphaBetaPruning.java
+│       │
+│       ├── datastructures
+│       │   ├── linear
+│       │   │   ├── ArrayList.java
+│       │   │   ├── LinkedList.java
+│       │   │   ├── SkipList.java
+│       │   │   ├── Stack.java
+│       │   │   ├── Queue.java
+│       │   │   ├── CircularQueue.java
+│       │   │   └── Deque.java
+│       │   │
+│       │   ├── hash
+│       │   │   ├── HashTable.java
+│       │   │   ├── HashMap.java
+│       │   │   ├── HashSet.java
+│       │   │   └── BloomFilter.java
+│       │   │
+│       │   ├── cache
+│       │   │   └── LRUCache.java
+│       │   │
+│       │   ├── heaps
+│       │   │   ├── MinHeap.java
+│       │   │   ├── MaxHeap.java
+│       │   │   └── PriorityQueue.java
+│       │   │
+│       │   ├── trees
+│       │   │   ├── BinaryTree.java
+│       │   │   ├── BinarySearchTree.java
+│       │   │   ├── AVLTree.java
+│       │   │   ├── RedBlackTree.java
+│       │   │   ├── BTree.java
+│       │   │   ├── BPlusTree.java
+│       │   │   ├── Trie.java
+│       │   │   ├── SegmentTree.java
+│       │   │   ├── FenwickTree.java
+│       │   │   ├── SuffixTree.java
+│       │   │   └── SuffixArray.java
+│       │   │
+│       │   ├── graphs
+│       │   │   ├── Graph.java
+│       │   │   ├── DirectedGraph.java
+│       │   │   ├── UndirectedGraph.java
+│       │   │   ├── WeightedGraph.java
+│       │   │   ├── AdjacencyList.java
+│       │   │   ├── AdjacencyMatrix.java
+│       │   │   └── DisjointSet.java
+│       │   │
+│       │   └── experimental
+│       │       └── Blockchain.java
 │       │
 │       └── utils
 │           ├── Benchmark.java
