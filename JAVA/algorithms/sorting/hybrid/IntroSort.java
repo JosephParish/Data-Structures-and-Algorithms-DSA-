@@ -143,10 +143,4 @@ public class Introsort {
       swap(i + 1, high);
       return (i + 1);
     }
-
-    // A utility function to print the array data
-    private void printData() {
-      for (int i = 0; i < n; i++)
-          System.out.print(array[i] + " ");
-    }
 }
